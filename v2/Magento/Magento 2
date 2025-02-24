@@ -88,10 +88,24 @@ server {
     try_files $uri =404;
     fastcgi_read_timeout 3600;
     fastcgi_send_timeout 3600;
-    fastcgi_param HTTPS $fastcgi_https;
+    fastcgi_param HTTPS "on";
+    fastcgi_param SERVER_PORT 443;
     fastcgi_pass 127.0.0.1:{{php_fpm_port}};
     fastcgi_param PHP_VALUE "{{php_settings}}";
+    #fastcgi_param MAGE_RUN_CODE "store_code";
+    #fastcgi_param MAGE_RUN_TYPE "website";
   }
+
+  if (-f $request_filename) {
+    break;
+  }
+}
+
+server {
+  listen 88;
+  listen [::]:88;
+  {{server_name}}
+  {{root}}
 
   try_files $uri $uri/ /index.php?$args;
   index index.php index.html;
@@ -107,7 +121,12 @@ server {
     fastcgi_param HTTPS "on";
     fastcgi_param SERVER_PORT 443;
     fastcgi_pass 127.0.0.1:{{php_fpm_port}};
-    fastcgi_param PHP_VALUE "{{php_settings}}";
+    fastcgi_param PHP_VALUE "
+      error_log={{php_error_log}};
+      memory_limit=2048M;
+      max_execution_time=7200;";
+    #fastcgi_param MAGE_RUN_CODE "store_code";
+    #fastcgi_param MAGE_RUN_TYPE "website";
   }
 
   if (-f $request_filename) {
