@@ -6,6 +6,7 @@
 #map $request_uri $MAGE_RUN_CODE {
 #  ~^/$path/ "store_code";
 #}
+
 server {
   listen 80;
   listen [::]:80;
