@@ -1,4 +1,11 @@
 #{"rootDirectory":"pub","phpVersion":"8.3"}
+#map $http_host $MAGE_RUN_CODE {
+#  default 'fr';
+#  example.com "store_code";
+#}
+#map $request_uri $MAGE_RUN_CODE {
+#  ~^/$path/ "store_code";
+#}
 server {
   listen 80;
   listen [::]:80;
@@ -114,7 +121,7 @@ server {
     fastcgi_param SERVER_PORT 443;
     fastcgi_pass 127.0.0.1:{{php_fpm_port}};
     fastcgi_param PHP_VALUE "{{php_settings}}";
-    #fastcgi_param MAGE_RUN_CODE "store_code";
+    #fastcgi_param MAGE_RUN_CODE "$MAGE_RUN_CODE";
     #fastcgi_param MAGE_RUN_TYPE "website";
   }
 }
