@@ -1,6 +1,6 @@
 #{"rootDirectory":"pub","phpVersion":"8.3"}
 #map $http_host $MAGE_RUN_CODE {
-#  default 'fr';
+#  default '';
 #  example.com "store_code";
 #}
 #map $request_uri $MAGE_RUN_CODE {
