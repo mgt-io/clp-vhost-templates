@@ -1,4 +1,4 @@
-#{"rootDirectory":"pub","phpVersion":"8.3"}
+#{"rootDirectory":"pub","phpVersion":"8.4"}
 #map $http_host $MAGE_RUN_CODE {
 #  default '';
 #  example.com "store_code";
