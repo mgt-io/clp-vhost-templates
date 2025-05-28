@@ -35,6 +35,19 @@ server {
 
   {{settings}}
 
+  set $maintenance off;
+  if (-f /home/site-user/htdocs/domain.com/pub/maintenance.enable) {
+    set $maintenance on;
+  }
+
+  #if ($remote_addr ~ (52.28.149.158|Dev1_IP|Dev2_IP)) {
+  #  set $maintenance off;
+  #}
+
+  if ($maintenance = on) {
+    rewrite ^(.*)$ /maintenance.html break;
+  }
+
   include /etc/nginx/global_settings;
 
   location ~/admin {
