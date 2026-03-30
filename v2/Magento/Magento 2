@@ -50,6 +50,10 @@ server {
 
   include /etc/nginx/global_settings;
 
+  location ~* ^/media/custom_options/ {
+    deny all;
+  }
+
   location ~/admin {
     #satisfy any;
     #allow 52.28.149.158/32; # MGT VPN
